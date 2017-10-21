@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ctex}  %就是在这里引入了ctex宏包，下面就可以直接输入中文编译之后就可以正常输出啦
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{url}
+\pagestyle{fancy}
+\title{An optimized Recall-based Graphical Password Authentication against Multiple Security Attacks}
+\author{David Guan}
+
+\newtheorem{definition}{Definition}
+\begin{document}
+\maketitle
+{\color{red}1.题目怎么改 2.是否将graphical password等三种类型的密码在introduction中提出3.是否可以将打分称为experimental study4.reference怎么写5.具体使用什么模板，以及字数要求6.全文使用过去式还是一般现在式}
+\section{Introduction}
+For the vast majority of computer systems, password schemes are the method of choice for authenticating users. In traditional analysis, researchers attempted to improve the theoretical complexity of password schemes. A significant latent hypothesis in traditional analysis is that the identification process was finished in a relative safe environment, like in people's home or ATMs in the bank. Therefore, attackers had no chance to get any information about the password of users, and they could only use Brute-force attacks, so the high theoretical complexity of password schemes improved strength against these guessing attacks. However, with the development of mobile devices in recent years, password schemes are applied in less safe environments and meet with challenges with peeping attacks. And high theoretical complexity means nothing against such attacks.
+
+In \cite{DBLP:journals/iacr/LiS05}, peeping attacks are defined as attacks during which adversaries can observe all actions of humans on input terminals and interactions between humans (provers) and computers (verifiers). Attackers may utilize direct observation or high-resolution cameras to record passwords. The theoretical complexity of password schemes will decrease quickly after peeping attacks. For example, the remaining theoretical complexity of text password will decrease to $O(1)$ after attackers recorded the whole authentication process.
+
+In this paper, we revised the definition of the password architecture and proposed a novel score function. The score function was based on the theoretical complexity and the remaining complexity after peeping attacks. Given a password schemes with computable theoretical complexity, our score function can make a assessment on passwords' capability against Brute-force attacks and peeping attacks. We also proposed an optimized password scheme \emph{Matrix}.  \emph{Matrix} was motivated by \emph{GrIDsure}\cite{Gridsure} and \emph{I-Go}\cite{DBLP:journals/iacr/LiS05}, but \emph{Matrix} had better performance against peeping attacks without increasing complexity on memorability. The main contribution of our paper are as follows.
+\begin{enumerate}
+    \item We defined some concepts used in the password architecture, like challenge space, password space and answer space.
+    \item We revised the definition of the password architecture, dividing it into a server system, user system, attacker system and analyser system. We also proposed a score function and applied into the analyser system. To our knowledge, our work is the first to consider both theoretical complexity and the remaining complexity after peeping attacks.
+    \item We classified mainstream password schemes into three categories: classical password schemes, naive password schemes and advanced password schemes. We performed a thorough experimental study on canonical examples of these three categories.
+    \item We proposed a novel advanced graphical password scheme \emph{Matrix}. We presented serval strategies to farther improve \emph{Matrix}'s strength against peeping attacks. We also take scalability into consideration.
+\end{enumerate}
+The rest of paper is organized as follows, Section 2 is on related work. In section 3, we first defined and illustrated several important concepts, and used the concepts to construct the password architecture. We also proposed the score function in this section. In section 4, we made experimental studies on mainstream three categories of password schemes. In Section 5, we presented an advanced graphical password \emph{Matrix} and proposed some strategies. We discussed our methodology in Section 6 and concluded our study in Section 7.
+\section{Related Work}
+\section{Password Architecture}
+\subsection{Definitions}
+\begin{definition}
+\textbf{Authentication Answer}. The messages that users input into the password scheme. Server will allow a user to login after receiving a correct authentication answer.
+\end{definition}
+\begin{definition}
+\textbf{Authentication Challenge}. A user gives an authentication answer based on a corresponding authentication challenge. For text passwords, there is only one authentication challenge, namely the text prompt like "Please enter the password:".
+\end{definition}
+\begin{definition}
+\textbf{Peeping Attack}. Considered consistency issues, we define only an authentication answer and a corresponding authentication challenge are exposed to the attacker in a peeping attack.
+\end{definition}
+\begin{definition}
+\textbf{Challenge Space $\mathbb{C}$}. Challenge space contains all the authentication challenges that one password scheme can provide.
+\end{definition}
+\begin{definition}
+\textbf{Definition 5: Password Space $\mathbb{P}$}. As the name suggested, password space has all possible passwords.
+\end{definition}
+\begin{definition}
+\textbf{Answer Space $\mathbb{A}$}. Answer space contains all possible authentication answers.
+\end{definition}
+\subsection{Password Architecture}
+We divide a password architecture into four systems: server system, user system, attacker system and analyser system. (Figure \ref {})
+\begin{figure}[htbp]
+\centering
+\includegraphics[height = 2.5in]{architecture.jpg}
+\caption{caption}
+\end{figure}
+
+A server has three main functions. First, it is responsible for the production of authentication challenges from challenge space. Then, it has to memorize users' passwords and the mapping from passwords to authentication answers ($A1:(\mathbb{C}, \mathbb{P}) \xrightarrow{f} \mathbb{A}$). Besides, it has to recognize whether users give a correct answer:
+\begin{equation}
+    Judge(r)=
+  \left\{
+   \begin{aligned}
+   1, \quad A1(a, x) = r \\
+   0, \quad A1(a, x) \neq r
+   \end{aligned}
+   \right.
+   , \quad r \in \mathbb{A}
+\end{equation}
+
+After getting the authentication challenge from the server (A), the user calculates and sends out an answer based on the mapping function $A2:(\mathbb{C}, \mathbb{P}) \xrightarrow{f} \mathbb{A}$ (B). $A2$ should be same as $A1$.
+
+There is an attacker hiding in the system. Using some capture attack methods, the attacker can get a subset of $\mathbb{A}$. (C) The attacker will continually calculate and guess the password and generate attacks (D). The capture attack is described as:
+\begin{equation}
+Capture(r)=
+  \left\{
+   \begin{aligned}
+   \emptyset, \quad no \quad capture \quad attacks \\
+   [r_{i_1},r_{i_2},...,r_{i_k}], \quad otherwise
+   \end{aligned}
+   \right.
+\end{equation}
+
+The server, user and attacker systems build a classical password architecture. In order to evaluate a password scheme, we propose to add the fourth part: an analyser. The analyser scores the password scheme based on the information about user and attacker systems. We will discuss an analyser's score function in the following section.
+
+\subsection{Analyser's Score Function}
+In previous password schemes, designers only focus on the theoretical complexity on the password space. However, the correlation between theoretical complexity and the quality of a password scheme is not as much as we think. There are mainly two reasons:
+\begin{enumerate}
+    \item In some schemes, the theoretical complexity decreases quickly with continuous peeping attacks. For example, the complexity of a $S$-bit text password decreases to $1$ after $S$ peeping attacks in the most ideal cases.
+    \item There are exploitable reductions in security due to user choice of passwords, which makes the complexity in practice much less than in theory. For example, users rarely select messy codes as their passwords, instead they prefer passwords related to personal information like name and birthday.
+\end{enumerate}
+
+Considered the above two reasons, we decreased the demand on the theoretical complexity. As long as the complexity of a scheme is larger than a threshold, we regarded it feasible. Besides, we took capabilities against peeking attack into consideration. We defined $F(x)$ to be the function that implies password schemes' remaining complexity after $x$ peeping attacks, for example, $F(0)$ is the theoretical complexity mentioned in traditional research. For a certain scheme $\mathbb{S}$, the evaluation function($Score(\mathbb{S})$) is defined as:
+\begin{equation}
+Score(\mathbb{S}) = [S1(\mathbb{S}),S2(\mathbb{S})], Score(\mathbb{S}) \in (0,1)
+\end{equation}
+$S1$ measures the capability against Brute-force attacks, the theoretical complexity of the password scheme has a positive correlation with $S1$. As theoretical complexity of different password schemes varies, we utilized logarithmic function and sigmoid function to do a smoothing. We set $threshold$ to be $ln(62^8)$, $62^8$ is the theoretical complexity of a $8$-bit text password with digits, capital and lower-case letters, which we thought qualified against pure Brute-force attacks:
+\begin{align}
+&S1(\mathbb{S}) = \frac{2}{\sqrt{\pi}}\int\nolimits_0^{R(\mathbb{S})}e^{-t^2} dt \\
+&R(\mathbb{S}) = \frac{ln(F(0))}{threshold}
+\end{align}
+$S2$ measures the capability against peeping attacks. Given schemes with a similar theoretical complexity, one will have a higher score if more peeping attacks are needed to make the remaining theoretical complexity fall down to $1$.
+\begin{equation}
+S2(\mathbb{S}) = \frac{\int\nolimits_0^{t}F(x) dx}{F(0)}
+\end{equation}
+
+\section{Experimental Study}
+To verify the capability of our analyser, we take a lab study on text password, PassPoint and our optimized model (Test). These three password schemes represent most of passwords' design philosophy.
+\subsection{Experimental Study on Classical Password Schemes}
+Text password is on behalf of classical password schemes. In classical password schemes, the authentication challenge is fixed, so the challenge space is $1$. The password space and answer space are the same, usually with an attractive theoretical complexity. Another characteristic of classical password schemes is its vulnerability against peeping attacks, since $A1$ and $A2$ are bijective and $\forall x \in \mathbb{P}, A1(a,x)=A2(a,x)=x$.
+
+Because of the vulnerability, the theoretical complexity of password space decreases quickly with several peeping attacks. In ideal cases, $F(x) = c^{l-x}$, where $c$ is the number of character users can choose, $l$ is the length of passwords.
+
+In our experimental study, we scored $6$-bit digit password (\emph{digit6}), $8$-bit (\emph{text8})and $12$-bit (\emph{text12}) text password with digits and capital and lower-case letters. We thought these three password schemes represented passwords applied in various situations in real life: \emph{digit6} is often used in payment cryptographic verification, like bank card password. \emph{text8} represented website login passwords with a moderate password strength, and \emph{text12} is on behalf of passwords with high strength.
+
+As we mentioned in Definition 3, a peeping attack contains both a answer and corresponding challenge. As the challenge space is $1$ and $A1(x) = x$ in this case, a successful peeping attack is equivalent to a decrease for the length of password. Therefore, the remaining theoretical complexity of \emph{digit6} is $10^{6-x}$ after $x$ peeping attacks. The computations of remaining theoretical complexity of \emph{text8} and \emph{text12} are similar, which are $62^{8-x}$ and $62^{12-t}$.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccc}
+    \hline
+    password scheme & $F(x)$ & $S1$ & $S2$ \\
+    \hline
+    \emph{digit6} & $10^{6-x}$ & $0.4460$ & 0.4343\\
+    \emph{text8} & $62^{8-x}$ & $0.8427$ & $0.2423$ \\
+    \emph{text12} & $62^{12-x}$ & $0.9661$ & $0.2423$ \\
+    \hline
+\end{tabular}
+\caption{Scores of Classical Password Schemes}
+\end{table}
+The experiment result is shown in Table \ref{}. Both $S1_{digit6}$ and $S2_{digit6}$ are relatively low, which showed the vulnerability against Brute-force attacks and peeping attacks. It appealed great sacrifice for memorability and convenience, and followed by huge risk in payment cryptographic verification. The $S1$ score of \emph{text8} and \emph{text12} are closed to 1, which shows a great capability against Brute-force attacks. However, the increase of password length does not change the vulnerability against peeping attacks.
+\subsection{Experimental Study on Naive Graphical Passwords}
+Naive graphical password schemes password schemes are similar to text password, they consider text password schemes as a special case. Their challenge spaces are small, and password spaces seems to be larger, since they only replace text by various graphs. The theoretical complexity of some naive graphical password spaces are closed to infinity, PassPoint for example. However, $A1$ and $A2$ are still one to one mappings in many cases, making password space and answer space highly correlated, so the vulnerability against peeping attacks still exists.
+
+In history, graphical password schemes were divided into three categories: (1) Recall-based password schemes. In these schemes, users typically recall and reproduce their secret drawing on a blank canvas or on a grid. \emph{Draw-a-Line} (\emph{DAS}) is the first proposed recall-based password scheme. (2) Recognition-based password schemes. Users are asked to memorize a portfolio of images during password creation, and then recognize their images from among decoys to log in. \emph{Passfaces} is a canonical example of the category. (3) Cued-based password schemes. Cued-recall systems typically require that users remember and target specific locations within an image. The category of password schemes could date back to a business patent, \emph{PassPoint}.
+
+In our experimental study, we scored \emph{DAS}, \emph{Passfaces} and \emph{Passpoint}. For the simplicity of computation, We restricted the length of a secret drawing in \emph{DAS} to be $8$. From \textbf{gys}, we knew that $F(x)_{DAS} = 2^{38-5*x}$. \emph{Passfaces} had 4 rounds of 16 images per panel, and $F(x)_{Passfaces} = 16^{4-x}$. \emph{Passpoint} had $6$ rounds, each round have a $1024\times752$ image. Considered fault tolerance, PassPoint regards clicks in the same grid are equivalent, and the grid square size is $20\times20$ (all measured in pixels). For each image, users have $(1024*752)/(20*20) = 1925$ choices, so $F(x)_{PassPoint} = 1925^{6-x}$.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccc}
+    \hline
+    password scheme & $F(x)$ & $S1$ & $S2$ \\
+    \hline
+    \emph{DAS} & $2^{38-5*x}$ & $ 0.7408$ & 0.2885\\
+    \emph{PassPoint} & $1925^{6-x}$ & $0.9481$ & $0.1322$ \\
+    \emph{Passfaces} & $16^{4-x}$ & $0.3652$ & $0.3607$ \\
+    \hline
+\end{tabular}
+\caption{Scores of Naive Graphical Password Schemes}
+\end{table}
+
+The experimental result is shown in \ref{}. The scores of \emph{DAS}, \emph{Passfaces} and \emph{Passpoint} had no significant difference with classical password schemes, which represented similar capabilities against Brute-force and peeping attacks.
+\subsection{Experimental Study on Advanced Graphical Passwords}
+Different from text password and naive graphical password, $A1$ and $A2$ are many to one mappings in advanced graphical password schemes, which eliminate the high correlation between password space and answer space. The challenge space is relatively larger than text password and naive graphical passwords, for example, the challenge space is $4^{3*3}$ in Test with a $3\times3$ grid and the digit in each cell has $4$ choices.
+
+In our experimental study, we tested \emph{GrIDsure} and \emph{I-Go}. The password of \emph{GrIDsure} is the grid cells users choose. In the experiment we set a $4\times4$ grid, so the password space of \emph{GrIDsure} is $2^{4*4} = 2^{16}$, and $F(x) = 2^{16-x}$. \emph{I-Go} regraded a chess puzzle users create as users' password. We chose an $4\times4$ chessboard in our lab study, so the password space of \emph{I-Go} is $2^{4*4*2} = 2^{32}$ considered that each position on the chessboard can be a black or white piece, and $F(x) = 2^{32-2*x}$ accordingly.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccc}
+    \hline
+    password scheme & $F(x)$ & $S1$ & $S2$ \\
+    \hline
+    \emph{GrIDsure} & $2^{16-x}$ & $ 0.3652$ & 1.4427\\
+    \emph{I-Go} & $2^{32-2*x}$ & $0.6579$ & $0.7213$ \\
+    \hline
+\end{tabular}
+\caption{Scores of Advanced Graphical Password Schemes}
+\end{table}
+
+The experiment result showed a significant improvement in the capability against peeping attacks. \emph{GrIDsure} has the same theoretical complexity with \emph{PassFaces} mentioned in the previous section, but the $S2$ score of \emph{GrIDsure} was $4$ times higher than \emph{PassFaces}. Similarly, \emph{I-Go} and \emph{DAS} showed little difference with theoretical complexity, but \emph{I-Go} had a $2.5$ times improvement in $S2$ score. The modification of $A1$ and $A2$ weakened the vulnerability against peeping attacks.
+\section{Matrix: an Application of Advanced Graphical Password Schemes}
+As we can see in the experiments, advanced graphical password schemes showed great capability against peeping attacks. However, there are few advanced graphical password schemes we can find in previous researches. In this section, we proposed an application of advanced graphical password schemes, \emph{Matrix}. \emph{Matrix} is motivated by \emph{GrIDsure} and \emph{I-Go}.
+
+\emph{Matrix} shared a similar framework as \emph{GrIDsure}, but had a larger authentication space. The scheme establishes a $n\times n$ grid, each cell of the grid has a random integer. Users select and memorize a pattern consisting of an ordered subset of the grid cells when registering. On subsequent logins, integers in each cell are randomly generated in the rage of $[0,m]$, and users should calculate the sum of the digits in the cells of their selected patterns and enter the result of the calculation in the screen. This process repeats several times. It is considered as a successful login if all the results are correct.
+
+The authentication space of \emph{Matrix} is $(m+1)^{n*n}$, and the theoretical complexity of \emph{Matrix} is $2^{n*n}$. Figure \ref {} shows a 3*3 grid in a login loop, the cells in deep color constitute a user's password, and the authentication answer in this loop is $2+3+3+3=11$.
+\begin{figure}[htbp]
+\centering
+\includegraphics[height = 2in]{example.jpg}
+\caption{caption}
+\end{figure}
+\subsection{Notations}
+\begin{enumerate}
+    \item \textbf{$n$}: The width of the grid.
+    \item \textbf{$S$}: The number of the cells in the grid.$S=n*n.$
+    \item \textbf{$T$}: The number of authentication loops.
+    \item \textbf{$K$}: The total number of the authentication loops that an attacker has observed.
+    \item \textbf{$a_{i,j}$}: The random number of the j-th cell in the i-th authentication loop. $1 \leq i \leq T, 1 \leq j \leq S, i,j \in \mathbb{N}.$ All the random integers in the grid in one loop, namely \textbf{$[a_{i,1},a_{i,2},...,a_{i,S}]$}, make up an authentication challenge in one loop.
+    \item \textbf{$x_i$}: $x_i = 1$ if users choose the i-th cell, otherwise $x_i = 0$. $1 \leq i \leq S, i \in \mathbb{N}$.
+    \item \textbf{$r_i$}: The correct answer of the i-th loop. $1 \leq i \leq T, i \in \mathbb{N}$. The answers of all loops, namely \textbf{$[r_{1},r_{2},...,r_{T}]$}, constitute a complete authentication answer.
+\end{enumerate}
+\subsection{Basic Idea}
+In a successful peeking attack, an attacker can get a equation system:
+\begin{equation}
+Ax = r
+\end{equation}
+where $A=\begin{bmatrix} a_{1,1}&a_{1,2}&...&a_{1,S}\\a_{2,1}&a_{2,2}&...&a_{2,S}\\...&...&...&...\\a_{K,1}&a_{K,2}&...&a_{K,S} \end{bmatrix}, x=\begin{bmatrix} x_1\\x_2\\...\\x_S \end{bmatrix}, r=\begin{bmatrix} r_1\\r_2\\...\\r_K \end{bmatrix}$.
+
+With the knowledge learned in linear algebra, we know the dimension of the solution space is $S-rank(A)$. When $rank(A) < S$, the equation is unsolvable and the attacker has to guess the users' pattern with a Brute-Force search in the solution space. However, the attacker can get a unique solution when $rank(A) = S$. Therefore, our mission is to find a scheme that can stop $rank(A)$ from reaching $S$ with consistent attacks.
+
+One intuition is to totally cancel the randomness of $a_{i,j}$, which means restricting linearly independent vectors in $\mathbb{N}^S$ that have appeared in the authentication system to a number less than $S$. But this may bring another severe problem: since the number of authentication challenges is limited, the attackers can just peep all the answers of corresponding challenges. In this way, they even don't bother to solve $Ax=r$. Another thought is to decrease $T$. Although less information are exposed to the attackers, it also decreases the number of possible authentication answers and decrease the difficulty of guess attacks. For example, if the authentication loop is $1$ and $r_1 \in[0,27]$, the success rate of a guess attack will be $1/28$, which is unacceptable.
+
+Both of these naive strategies are infeasible. In the following sections, we will introduce two complicated strategy to prevent and avoid the problem.
+\subsubsection{Strategy 1: Partly Cancel the Randomness}
+We have known that it is not a good idea to cancel the randomness, but unlimited randomness is harmful either. Given k linearly independent vectors in $\mathbb{N}^S$: $a_1,a_2,...,a_k$, if we randomly generate a vector $a \in \mathbb{N}^S$, the probability that $a$ is independent from k previous vectors is almost 1 when S is not too small:
+\begin{equation}
+P(C | a_1,a_2,...,a_k) = 1
+\end{equation}
+where C means the probability event that a new vector is generated. This means the attacker can solve $Ax=r$ after $S$ peeping attacks in the most ideal case.
+
+To make a tradeoff, we proposed a strategy to partly cancel the randomness. First, we generate a maximal linearly independent subsystem $[b_1,b_2,...,b_S]$, in which all the components are 0 or 1. equation \textbf{lala} is a good example when $S$ is $9$.
+\begin{equation}
+\begin{bmatrix}
+1&1&0&1&0&1&0&0&1 \\
+1&1&0&1&1&0&0&1&0 \\
+0&1&0&0&1&0&1&0&1 \\
+0&0&0&1&0&0&0&1&1 \\
+0&0&1&0&1&0&0&0&1 \\
+1&1&0&1&1&1&0&0&1 \\
+1&1&1&1&0&0&1&0&1 \\
+0&0&1&0&1&1&0&1&0 \\
+1&0&1&0&0&0&1&1&1 \\
+\end{bmatrix}
+\end{equation}
+
+Then, we select a special distribution X and the occurrence of all the vectors in the subsystem should conform to X. X should satisfy the following properties: (i) it is a discrete distribution where only $S$ type of elementary events exist.
+\begin{equation}
+\sum\limits_{i=1}^SP(b_i) = 1
+\end{equation}
+(ii) elementary events can not be assigned equal probabilities, and the probability of some elementary events are really small:
+
+To generate a new authentication challenge $r_i$, we make a random sampling with replacement in the subsystem $[b_1,b_2,...,b_S]$ and get a sample ${b_{i,1},b_{i,2},b_{i,3}}$:
+\begin{equation}
+r_i = \sum\limits_{j=1}^3 b_{i,j}
+\end{equation}
+\subsubsection{Experimental Study on Matrix}
+In this section, we compared \emph{Matrix} and \emph{Matrix} with Strategy 1 (\emph{Matrix2}). Since Strategy 1 does not change the theoretical complexity of \emph{Matrix}, we focused on the capability against peeping attacks, and the capability can
+be measured by their $S2$ score.
+In the experiment, \emph{Matrix} and \emph{Matrix2} had a $3 \times3$ grid, and the integer in each grid cell was in range $[0,3]$. The distribution in \emph{Matrix2} is: $X~N(5,1)$. The result were shown in Table \ref{}. The indicator $t$ implied the number of peeping attacks taken until the remaining theoretical complexity decreased to $1$. Assumed the interval between every two peeping attacks is fixed, it would take the peeping attackers of \emph{Matrix2} $980\%$ longer time to wait. In the real case, the improvement against peeping attacks may not be that large because the remaining theoretical complexity is not large enough aften tens of attacks, but \emph{Matrix2} still showed a significant improvement compared with \emph{Matrix}, as shown in Figure \ref{}.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ccc}
+    \hline
+    password scheme & t & $S2$ \\
+    \hline
+    \emph{Matrix} & $9$ & $1.4399$\\
+    \emph{Matrix2} & $88$ & $4.1914$ \\
+    \hline
+\end{tabular}
+\caption{An Experiment on \emph{Matrix} and \emph{Matrix2}}
+\end{table}
+\begin{figure}[htbp]
+\centering
+\includegraphics[height = 2in]{Matrix.jpg}
+\caption{caption}
+\end{figure}
+\subsubsection{Other Strategies: Optimizing Matrix in Different Situations}
+In this section, we proposed two exogenous strategies for \emph{Matrix}. These strategies do not modify the basic architecture of \emph{Matrix}, in turn they offer optimizations for different service environments.
+
+The first strategy is History-based Prediction. The strategy is motivated by the branch prediction technology in computer architecture areas. We could set up a 2-bit saturating counter, which is a finite state machine (FSM) with 4 states (the FSM is shown in Figure \ref{}):strongly normal login(00), weekly normal login(01), weekly attack(10) and strongly attack(11). The initial state is 00. When a login event is happened, the corresponding state machine is updated. Failed user logins increase the state toward State 11, and successful user logins decrease the state toward State 00.
+
+The strategy targets at the environment with various potential attackers. When \emph{Matrix} encounters a attack burst, the state will decrease to strongly attack quickly and prevent more basis vectors from being known by the attackers. When the current state is 10 or 11, we regard the current authentication scheme is under attack and stop to generate a new random authentication challenge. Instead, the new authentication challenge will be a linear combination of ${b_{i_1},b_{i_2},b_{i_3}}$.(${b_{i_1},b_{i_2},b_{i_3}}$ are basis vectors generated by previous samplings.)
+\begin{figure}[htbp]
+\centering
+\includegraphics[height = 1.5in]{fsm.jpg}
+\caption{caption}
+\end{figure}
+
+The second strategy focus on scalability. \emph{Matrix} may not be applied to a large authentication system when taking memorability into consideration. For example, \emph{Matrix} with a $4\times4$ grid can only provide up to $2^{16}$ authentication passwords for its users, so it is just feasible for a system with $60$ thousand users.
+
+In the second strategy, users select their own password set $\mathbb{P}$ in advance. In each authentication loop, the authentication challenge randomly asks for the password $p_i$, $p_i \in \mathbb{P}$. For example ,in the \emph{Matrix} with a $4\times4$ grid and a password set containing two passwords, the password space becomes $2^{16}*2^{16} = 2^{32}$, which can support hundreds of millions users.
+\section{Discussion}
+\section{Conclusion}
+\bibliographystyle{plain}
+\bibliography{bibfile}
+\end{document}

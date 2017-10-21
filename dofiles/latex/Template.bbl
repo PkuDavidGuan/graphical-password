@@ -1,0 +1,85 @@
+\begin{thebibliography}{10}
+
+\bibitem{DBLP:journals/csur/BiddleCO12}
+Robert Biddle, Sonia Chiasson, and Paul~C. van Oorschot,
+\newblock ``Graphical passwords: Learning from the first twelve years,''
+\newblock {\em {ACM} Comput. Surv.}, vol. 44, no. 4, pp. 19:1--19:41, 2012.
+
+\bibitem{Passfaces}
+Passfaces Corporation,
+\newblock ``The science behind passfaces,''
+  http://www.passfaces.com/enterprise/resources/, 2009.
+
+\bibitem{DBLP:conf/uss/JermynMMRR99}
+Ian Jermyn, Alain~J. Mayer, Fabian Monrose, Michael~K. Reiter, and Aviel~D.
+  Rubin,
+\newblock ``The design and analysis of graphical passwords,''
+\newblock in {\em Proceedings of the 8th {USENIX} Security Symposium,
+  Washington, D.C., August 23-26, 1999}, 1999.
+
+\bibitem{DBLP:conf/soups/WiedenbeckWBBM05}
+Susan Wiedenbeck, Jim Waters, Jean{-}Camille Birget, Alex Brodskiy, and
+  Nasir~D. Memon,
+\newblock ``Authentication using graphical passwords: effects of tolerance and
+  image choice,''
+\newblock in {\em Proceedings of the 1st Symposium on Usable Privacy and
+  Security, {SOUPS} 2005, Pittsburgh, Pennsylvania, USA, July 6-8, 2005}, 2005,
+  pp. 1--12.
+
+\bibitem{DBLP:journals/iacr/LiS05}
+Shujun Li and Heung{-}Yeung Shum,
+\newblock ``Secure human-computer identification (interface) systems against
+  peeping attacks: Sechci,''
+\newblock {\em {IACR} Cryptology ePrint Archive}, vol. 2005, pp. 268, 2005.
+
+\bibitem{Hopper:2001:SHI:647097.717000}
+Nicholas~J. Hopper and Manuel Blum,
+\newblock ``Secure human identification protocols,''
+\newblock in {\em Proceedings of the 7th International Conference on the Theory
+  and Application of Cryptology and Information Security: Advances in
+  Cryptology}, London, UK, UK, 2001, ASIACRYPT '01, pp. 52--66,
+  Springer-Verlag.
+
+\bibitem{DBLP:conf/icc/ZhangZDLHK17}
+Ruide Zhang, Ning Zhang, Changlai Du, Wenjing Lou, Y.~Thomas Hou, and Yuichi
+  Kawamoto,
+\newblock ``Augauth: Shoulder-surfing resistant authentication for augmented
+  reality,''
+\newblock in {\em {IEEE} International Conference on Communications, {ICC}
+  2017, Paris, France, May 21-25, 2017}, 2017, pp. 1--6.
+
+\bibitem{DBLP:conf/percom/MaitiJW17}
+Anindya Maiti, Murtuza Jadliwala, and Chase Weber,
+\newblock ``Preventing shoulder surfing using randomized augmented reality
+  keyboards,''
+\newblock in {\em 2017 {IEEE} International Conference on Pervasive Computing
+  and Communications Workshops, PerCom Workshops 2017, Kona, Big Island, HI,
+  USA, March 13-17, 2017}, 2017, pp. 630--635.
+
+\bibitem{DBLP:journals/mta/LuoY16}
+Jia{-}Ning Luo and Ming{-}Hour Yang,
+\newblock ``A mobile authentication system resists to shoulder-surfing
+  attacks,''
+\newblock {\em Multimedia Tools Appl.}, vol. 75, no. 22, pp. 14075--14087,
+  2016.
+
+\bibitem{DBLP:conf/ic-nc/HigashiyamaYOF15}
+Yuma Higashiyama, Naoto Yanai, Shingo Okamura, and Toru Fujiwara,
+\newblock ``Revisiting authentication with shoulder-surfing resistance for
+  smartphones,''
+\newblock in {\em Third International Symposium on Computing and Networking,
+  {CANDAR} 2015, Sapporo, Hokkaido, Japan, December 8-11, 2015}, 2015, pp.
+  89--95.
+
+\bibitem{Brostoff2010Evaluating}
+Sacha Brostoff, Philip Inglesant, and M.~Angela Sasse,
+\newblock ``Evaluating the usability and security of a graphical one-time pin
+  system,''
+\newblock in {\em Bcs Interaction Specialist Group Conference}, 2010, pp.
+  88--97.
+
+\bibitem{chollet2015keras}
+Fran\c{c}ois Chollet et~al.,
+\newblock ``Keras,'' https://github.com/fchollet/keras, 2015.
+
+\end{thebibliography}
