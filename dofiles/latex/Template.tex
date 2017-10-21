@@ -142,7 +142,7 @@
   \subsection{The Architecture of graphical password systems}
   \begin{figure}[htb]
     \centering
-    \includegraphics[width=8.5cm]{architecture.jpg}
+    \includegraphics[width=8.5cm]{architecture.pdf}
     \caption{The architecture of graphical password systems}
     \label{fig:architecture}
   \end{figure}
@@ -162,7 +162,7 @@
    \right.
    , \quad a \in \mathbb{A}
   \end{equation}
-  After getting an authentication challenge $c$ from the verifier, provers calculated the answer $a = p(c)$ 
+  After getting an authentication challenge $c$ from the verifier, provers calculated the answer $\vec{a} = p(\vec{c})$ 
   and made a reply. Attackers hid in the system, recorded successive challenge and answer pairs $(c, a)$ and trained specific 
   NN models for different provers. The result of an attack is determined by Equation \ref{equa:attacker}, 
   and $Attacker(c,a)=1$ will be viewed as a successful attack.
@@ -296,16 +296,32 @@
   their influence on the indicator $Strength_{pass|l}$.
   \begin{figure}[htb]
     \centering
-    \includegraphics[width=8.5cm]{line2.eps}
+    \includegraphics[width=8.5cm]{passfaces.eps}
     \caption{The experiment results}
     \label{fig:results2}
   \end{figure}
+  % \begin{figure}[htb]
+  %   \begin{minipage}[b]{.48\linewidth}
+  %   \centering
+  %   \centerline{\includegraphics[width=4.0cm]{passfaces.eps}}
+  % %  \vspace{1.5cm}
+  %   \centerline{PassFaces}\medskip
+  % \end{minipage}
+  % \hfill
+  % \begin{minipage}[b]{0.48\linewidth}
+  %   \centering
+  %   \centerline{\includegraphics[width=4.0cm]{gridsure.eps}}
+  % %  \vspace{1.5cm}
+  %   \centerline{GrIDsure}\medskip
+  % \end{minipage}
+  %   \label{fig:results2}
+  % \end{figure}
   
   Figure \ref{fig:results2} shows the experiment results on PassFaces and GrIDsure. When there is $8$ hidden 
   units in each hidden layer, $Strength_{PassFaces|0.9}$ approaches $1000$. However, $Strength_{PassFaces|0.9}$ halves 
-  when the number of hidden units increases to $32$. GrIDsure shows great similarities with PassFaces on the 
-  experiment result, and it can not get a $90\%$ accuracy even with $1000$ pieces of training data when there 
-  are $8$ hidden units each layer.
+  when the number of hidden units increases to $32$. We do not display the result on GrIDsure due to space 
+  limitations, and it shows great similarities with PassFaces on the experiment result. The attack model can not 
+  get a $90\%$ accuracy even with $1000$ pieces of training data when there are $8$ hidden units each layer.
   
   The second experiment shows that information expressivities of NN models seriously affect $Strength_{pass|l}$. 
   The result is significant both for attackers and researchers. For attackers, the shoulder-surfing attack will be 

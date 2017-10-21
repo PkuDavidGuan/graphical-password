@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.7)  21 OCT 2017 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.7)  21 OCT 2017 21:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -249,56 +249,53 @@ Underfull \hbox (badness 3815) in paragraph at lines 136--140
 []\OT1/ptm/b/it/10 Authentication Pass-word p and Pass-word
  []
 
-<architecture.jpg, id=12, 510.40688pt x 331.2375pt>
-File: architecture.jpg Graphic file (type jpg)
- <use architecture.jpg>
-Package pdftex.def Info: architecture.jpg used on input line 145.
-(pdftex.def)             Requested size: 241.84842pt x 156.9553pt.
-
-[2 <./architecture.jpg>]
-Underfull \vbox (badness 1253) has occurred while \output is active []
-
-
+<architecture.pdf, id=12, 1027.84pt x 770.88pt>
+File: architecture.pdf Graphic file (type pdf)
+ <use architecture.pdf>
+Package pdftex.def Info: architecture.pdf used on input line 145.
+(pdftex.def)             Requested size: 241.84842pt x 181.38031pt.
+ [2 <./architecture.pdf>]
 
 LaTeX Warning: Citation `DBLP:journals/ijmms/AngeliCJR05' on page 3 undefined o
 n input line 247.
 
 Package epstopdf Info: Source file: <line.eps>
-(epstopdf)                    date: 2017-10-20 10:24:01
-(epstopdf)                    size: 23855 bytes
+(epstopdf)                    date: 2017-10-21 20:51:34
+(epstopdf)                    size: 23822 bytes
 (epstopdf)             Output file: <line-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-10-20 11:05:18
-(epstopdf)                    size: 14276 bytes
+(epstopdf)                    date: 2017-10-21 20:51:46
+(epstopdf)                    size: 14278 bytes
 (epstopdf)             Command: <repstopdf --outfile=line-eps-converted-to.pdf 
 line.eps>
 (epstopdf)             \includegraphics on input line 275.
 Package epstopdf Info: Output file is already uptodate.
-<line-eps-converted-to.pdf, id=23, 462.72874pt x 346.29375pt>
+<line-eps-converted-to.pdf, id=77, 462.72874pt x 346.29375pt>
 File: line-eps-converted-to.pdf Graphic file (type pdf)
 
 <use line-eps-converted-to.pdf>
 Package pdftex.def Info: line-eps-converted-to.pdf used on input line 275.
 (pdftex.def)             Requested size: 241.84842pt x 180.9932pt.
  [3]
-Package epstopdf Info: Source file: <line2.eps>
-(epstopdf)                    date: 2017-10-20 16:55:33
-(epstopdf)                    size: 24564 bytes
-(epstopdf)             Output file: <line2-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-10-20 21:51:06
-(epstopdf)                    size: 12864 bytes
-(epstopdf)             Command: <repstopdf --outfile=line2-eps-converted-to.pdf
- line2.eps>
+Package epstopdf Info: Source file: <passfaces.eps>
+(epstopdf)                    date: 2017-10-21 20:54:19
+(epstopdf)                    size: 20974 bytes
+(epstopdf)             Output file: <passfaces-eps-converted-to.pdf>
+(epstopdf)                    date: 2017-10-21 20:54:36
+(epstopdf)                    size: 12137 bytes
+(epstopdf)             Command: <repstopdf --outfile=passfaces-eps-converted-to
+.pdf passfaces.eps>
 (epstopdf)             \includegraphics on input line 299.
 Package epstopdf Info: Output file is already uptodate.
 
-<line2-eps-converted-to.pdf, id=28, 462.72874pt x 346.29375pt>
-File: line2-eps-converted-to.pdf Graphic file (type pdf)
+<passfaces-eps-converted-to.pdf, id=82, 462.72874pt x 346.29375pt>
+File: passfaces-eps-converted-to.pdf Graphic file (type pdf)
 
-<use line2-eps-converted-to.pdf>
-Package pdftex.def Info: line2-eps-converted-to.pdf used on input line 299.
+<use passfaces-eps-converted-to.pdf>
+Package pdftex.def Info: passfaces-eps-converted-to.pdf used on input line 299.
+
 (pdftex.def)             Requested size: 241.84842pt x 180.9932pt.
- [4 <./line-eps-converted-to.pdf> <./line2-eps-converted-to.pdf>] (./Template.b
-bl
+ [4 <./line-eps-converted-to.pdf> <./passfaces-eps-converted-to.pdf>] (./Templa
+te.bbl
 Underfull \hbox (badness 2245) in paragraph at lines 4--7
 []\OT1/ptm/m/n/10 Robert Bid-dle, So-nia Chi-as-son, and Paul C. van
  []
@@ -324,8 +321,8 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2515 strings out of 492995
- 33689 string characters out of 6132705
+ 2514 strings out of 492995
+ 33705 string characters out of 6132705
  101926 words of memory out of 5000000
  6019 multiletter control sequences out of 15000+600000
  21403 words of font info for 54 fonts, out of 8000000 for 9000
@@ -346,10 +343,10 @@ xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/201
 -dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fon
 ts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on Template.pdf (5 pages, 217558 bytes).
+Output written on Template.pdf (5 pages, 249623 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 200 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
