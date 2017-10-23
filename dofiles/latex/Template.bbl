@@ -40,7 +40,7 @@ Nicholas~J. Hopper and Manuel Blum,
   Cryptology}, London, UK, UK, 2001, ASIACRYPT '01, pp. 52--66,
   Springer-Verlag.
 
-\bibitem{DBLP:conf/icc/ZhangZDLHK17}
+\bibitem{DBLPHK17}
 Ruide Zhang, Ning Zhang, Changlai Du, Wenjing Lou, Y.~Thomas Hou, and Yuichi
   Kawamoto,
 \newblock ``Augauth: Shoulder-surfing resistant authentication for augmented
@@ -48,7 +48,7 @@ Ruide Zhang, Ning Zhang, Changlai Du, Wenjing Lou, Y.~Thomas Hou, and Yuichi
 \newblock in {\em {IEEE} International Conference on Communications, {ICC}
   2017, Paris, France, May 21-25, 2017}, 2017, pp. 1--6.
 
-\bibitem{DBLP:conf/percom/MaitiJW17}
+\bibitem{DBLPJW17}
 Anindya Maiti, Murtuza Jadliwala, and Chase Weber,
 \newblock ``Preventing shoulder surfing using randomized augmented reality
   keyboards,''
@@ -63,13 +63,25 @@ Jia{-}Ning Luo and Ming{-}Hour Yang,
 \newblock {\em Multimedia Tools Appl.}, vol. 75, no. 22, pp. 14075--14087,
   2016.
 
-\bibitem{DBLP:conf/ic-nc/HigashiyamaYOF15}
+\bibitem{DBLPOF15}
 Yuma Higashiyama, Naoto Yanai, Shingo Okamura, and Toru Fujiwara,
 \newblock ``Revisiting authentication with shoulder-surfing resistance for
   smartphones,''
 \newblock in {\em Third International Symposium on Computing and Networking,
   {CANDAR} 2015, Sapporo, Hokkaido, Japan, December 8-11, 2015}, 2015, pp.
   89--95.
+
+\bibitem{gys}
+Yushuo Guan et~al.,
+\newblock ``Graphical passwords,''
+  https://github.com/PkuDavidGuan/graphical-password, 2017.
+
+\bibitem{DBLP:journals/ijmms/AngeliCJR05}
+Antonella~De Angeli, Lynne~M. Coventry, Graham Johnson, and Karen Renaud,
+\newblock ``Is a picture really worth a thousand words? exploring the
+  feasibility of graphical authentication systems,''
+\newblock {\em International Journal of Man-Machine Studies}, vol. 63, no. 1-2,
+  pp. 128--152, 2005.
 
 \bibitem{Brostoff2010Evaluating}
 Sacha Brostoff, Philip Inglesant, and M.~Angela Sasse,

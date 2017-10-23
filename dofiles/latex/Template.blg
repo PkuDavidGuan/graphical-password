@@ -2,61 +2,45 @@ This is BibTeX, Version 0.99d (TeX Live 2017)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Template.aux
 The style file: IEEEbib.bst
-Database file #1: strings.bib
-Database file #2: refs.bib
-Repeated entry---line 84 of file refs.bib
- : @article{DBLP:journals/iacr/LiS05
- :                                  ,
-I'm skipping whatever remains of this entry
-A bad cross reference---entry "DBLP:conf/icc/ZhangZDLHK17"
-refers to entry "DBLP:conf/icc/2017", which doesn't exist
-A bad cross reference---entry "DBLP:conf/percom/MaitiJW17"
-refers to entry "DBLP:conf/percom/2017w", which doesn't exist
-A bad cross reference---entry "DBLP:conf/ic-nc/HigashiyamaYOF15"
-refers to entry "DBLP:conf/ic-nc/2015", which doesn't exist
-Warning--I didn't find a database entry for "DBLP:journals/ijmms/AngeliCJR05"
-Warning--I didn't find a database entry for "DBLP:conf/icc/2017"
-Warning--I didn't find a database entry for "DBLP:conf/percom/2017w"
-Warning--I didn't find a database entry for "DBLP:conf/ic-nc/2015"
-You've used 12 entries,
+Database file #1: refs.bib
+You've used 14 entries,
             1838 wiz_defined-function locations,
-            548 strings with 6704 characters,
-and the built_in function-call counts, 3292 in all, are:
-= -- 290
-> -- 137
+            552 strings with 6797 characters,
+and the built_in function-call counts, 3703 in all, are:
+= -- 327
+> -- 159
 < -- 6
-+ -- 50
-- -- 38
-* -- 232
-:= -- 479
-add.period$ -- 12
-call.type$ -- 12
-change.case$ -- 12
++ -- 58
+- -- 44
+* -- 264
+:= -- 545
+add.period$ -- 14
+call.type$ -- 14
+change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 158
-empty$ -- 340
-format.name$ -- 38
-if$ -- 772
+cite$ -- 14
+duplicate$ -- 171
+empty$ -- 381
+format.name$ -- 44
+if$ -- 863
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 10
-newline$ -- 61
-num.names$ -- 12
-pop$ -- 55
+int.to.str$ -- 14
+missing$ -- 11
+newline$ -- 70
+num.names$ -- 14
+pop$ -- 62
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 92
+skip$ -- 98
 stack$ -- 0
-substring$ -- 215
-swap$ -- 58
+substring$ -- 240
+swap$ -- 60
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 34
-width$ -- 14
-write$ -- 134
-(There were 4 error messages)
+while$ -- 38
+width$ -- 16
+write$ -- 155

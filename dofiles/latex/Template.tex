@@ -91,10 +91,10 @@
   is coarse-grained and inaccurate. NN makes the attack model standardized and provides researchers with an opportunity 
   to quantify graphical passwords strength against shoulder-surfing attacks. 
   
-  In this paper, we proposed a standardized method to quantify the password strength. We first revised the 
-  definition of the password architecture and proposed a indicator to measure password strength against 
+  In this paper, we proposed a standardized method to quantify the password strength. We first revised basic 
+  definitions with respect to the password architecture and proposed a indicator to measure password strength against 
   shoulder surfing attacks. We then built up different NN models for graphical passwords with 
-  single or multiple bits of input. We quantified four graphical password schemes in the experiments and verified 
+  single or multiple bits of input. We quantified four representative graphical password schemes in the experiments and verified 
   the rationality of the indicator. Other researchers may build upon this approach to analyze future systems.
   
   To our best knowledge, our work is the first to quantify the password strength against shoulder-surfing 
@@ -103,15 +103,15 @@
   mentioned three basic principles: time-variant responses, uncertainty and balance. Nicholas Hopper 
   \cite{Hopper:2001:SHI:647097.717000} introduced formal definitions of completeness, soundness and human 
   excutability. Extension works proposed specialized solutions in different fields. 
-  \cite{DBLP:conf/icc/ZhangZDLHK17} and \cite{DBLP:conf/percom/MaitiJW17} made shoulder-surfing resistant schemes 
-  for augmented reality, \cite{DBLP:journals/mta/LuoY16} and \cite{DBLP:conf/ic-nc/HigashiyamaYOF15} presented 
+  \cite{DBLPHK17} and \cite{DBLPJW17} made shoulder-surfing resistant schemes 
+  for augmented reality, \cite{DBLP:journals/mta/LuoY16} and \cite{DBLPOF15} presented 
   specific schemes for smartphones to prevent shoulder-surfing attacks. All these works were verified by a small 
   number of volunteers, which is less convincing than a quantitative analysis.
   
   \section{Definitions and system architecture}
   \label{sec:preliminaries}
-  In this section, we first presented basic definitions with respect to an authentication, and then introduced 
-  traditional architectures in the graphical passwords systems.
+  In this section, we first presented basic definitions with respect to an authentication, and then introduced the 
+  architecture in the graphical password systems.
   \subsection{Basic Definitions}
   The most fundamental definitions in the authentication process are authentication challenges and answers. To 
   login, users have to enter an answer into the system (like "123456") based on a given challenge (like "Please 
@@ -120,14 +120,14 @@
     \textbf{Authentication Challenge $\vec c$ and Challenge Space $\mathbb{C}$}. $\vec c = [x_1, x_2,...,x_M]$, 
     wich contains $M$-bit messages for computers (verifiers) to distinguish users from malicious impersonators. 
     Challenge space contains all possible authentication challenges that one graphical password system can 
-    provide. $|\mathbb{C}| = \sum\limits_{i=1}^{M}|S_x^i|$, where $S_x^i$ contains all possible options for 
+    provide. $|\mathbb{C}| = \prod\limits_{i=1}^{M}|S_x^i|$, where $S_x^i$ contains all possible options for 
     the $i$-th bit message of an authentication challenge.
   \end{definition}
   \begin{definition}
     \textbf{Authentication Answer $\vec a$ and Answer Space $\mathbb{A}$}. For a $N$-bit graphical password system, $\vec a = [y_1, y_2,...,y_N]$, 
     where $y_i$ is the $i$-th input of users in the authentication process. ($i \in [1, N], i \in \mathbb{N}$) 
     Answer space contains all possible authentication answers a certain user can provide: 
-    $|\mathbb{A}| = \sum\limits_{i=1}^{N}|S_y^i|$, where $S_y^i$ contains all possible options for the $i$-th 
+    $|\mathbb{A}| = \prod\limits_{i=1}^{N}|S_y^i|$, where $S_y^i$ contains all possible options for the $i$-th 
     input of an answer. The answer space for different users may be different.
   \end{definition}
   Given the definitions of authentication challenge and authentication answer, we can propose the 
@@ -147,42 +147,50 @@
     \label{fig:architecture}
   \end{figure}
   As shown in Figure \ref{fig:architecture}, a graphical password system is constituted with a verifier (computers), 
-  several provers (human users)and attackers. 
+  $K$ provers (human users)and a attacker. 
   
-  A verifier has three main functions. First, the verifier has to generate a specific authentication challenge $c$ for 
-  a prover and collect a relevant reply $a$from the prover. Then, it has to memorize passwords of all provers. 
-  Besides, it is responsible for the verification of provers:
+  The verifier is responsible for the verifications of provers. It maintains $[p_1, p_2,...,p_{K}]$, 
+  which $p_i$ is the authentication password of prover $i$. In the authentication process, it generates $K$ 
+  authentication challenges $[\vec{c}_1, \vec{c}_2,...,\vec{c}_{K}]$ for each prover and collects relative replies 
+  $[\vec{a}_1,\vec{a}_2,...,\vec{a}_{K}]$ from each prover. The verifier distinguishs true provers $\mathbb{T}$ 
+  from attackers, where $\mathbb{T} = \{i|p_i(\vec{c}_i) = \vec{a}_i\}$.
+
+  % The verifier has three main functions. First, the verifier generates a specific authentication challenge $c$ for 
+  % a prover and collects a reply $a$ from the prover. Then, it memorizes passwords of all provers. 
+  % Besides, the verifier is responsible for the verification of provers:
+  % \begin{equation}
+  %   Verifier(a)=
+  % \left\{
+  %  \begin{aligned}
+  %  1, \quad p(c) = a \\
+  %  0, \quad p(c) \neq a
+  %  \end{aligned}
+  %  \right.
+  %  , \quad a \in \mathbb{A}
+  % \end{equation}
+  For prover $i$, it gets an authentication challenge $\vec{c}_i$ from the verifier and replied with an 
+  authentication answer $\vec{a}_i = p_i(\vec{c}_i)$. Prover $i$ can login only if $i \in \mathbb{T}$. 
+  
+  The attacker hides in the system, records successive challenge and answer pairs $(c, a)$ and trains 
+  NN enabled attack models for different provers. The result of an attack is determined by Equation \ref{equa:attacker}, 
+  and $Attack(\vec{c}_i,\vec{a}_i)=1$ will be viewed as a successful attack on prover $i$.
   \begin{equation}
-    Verifier(a)=
+    Attack(\vec{c}, \vec{a})=
   \left\{
    \begin{aligned}
-   1, \quad p(c) = a \\
-   0, \quad p(c) \neq a
-   \end{aligned}
-   \right.
-   , \quad a \in \mathbb{A}
-  \end{equation}
-  After getting an authentication challenge $c$ from the verifier, provers calculated the answer $\vec{a} = p(\vec{c})$ 
-  and made a reply. Attackers hid in the system, recorded successive challenge and answer pairs $(c, a)$ and trained specific 
-  NN models for different provers. The result of an attack is determined by Equation \ref{equa:attacker}, 
-  and $Attacker(c,a)=1$ will be viewed as a successful attack.
-  \begin{equation}
-    Attacker(c, a)=
-  \left\{
-   \begin{aligned}
-   1, \quad NN(c) = a \\
-   0, \quad NN(c) \neq a
+   1, \quad NN(\vec{c}) = \vec{a} \\
+   0, \quad NN(\vec{c}) \neq \vec{a}
    \end{aligned}
    \right.
   \label{equa:attacker}
   \end{equation}
   
   
-  \section{Design of the Attack Model}
+  \section{Design of an Attack Model}
   \label{sec:design}
-  In this section, we described the design of the attack model. We started by explaining the training 
-  methodology. Then we described the hierarchy of the NN model and enabled it to support different graphical 
-  password systems.
+  In this section, we described the design of an attack model. We started by explaining the training 
+  methodology. Then we described the hierarchy of the NN model used in the attack model and enabled it 
+  to support different graphical password systems.
   
   The first step for the attack model is to generate a training phase. Ideally, training data would be collected with actual 
   shoulder-surfing attacks. However, this approach is inefficient, as the training algorithm must wait until an attack 
@@ -192,12 +200,12 @@
   relevant answers successively.
   
   The hierarchy of attack models is as followed. The input is a $M$-dimensional vector 
-  $\vec c = [x_1, x_2,...,x_M]$, showing a simulation of an authentication challenge. The output is simply a 
+  $\vec c = [x_1, x_2,...,x_M]$, which a simulation of an authentication challenge. The output is simply a 
   predicted $N$-bit answer with respect to the authentication challenge. The input layer is simply $M$ units, 
   i.e. one for each bit of an authentication challenge. The hierarchy of hidden layers is optional for 
   attackers. The output layers differed between different passwords. For the prediction of the $i$-bit authentication 
   answer, if $S_y^i$ is known by attackers in advance we will use a $|S_y^i|$-way softmax as predict the $i$-bit 
-  of the authentication answer. Otherwise the softmax layer will be replaced by a regression. The $i$-bit 
+  of the authentication answer. Otherwise the softmax layer will be replaced by a regression layer. The $i$-bit 
   authentication answer can be predicted as:
   \begin{equation}
     \begin{gathered}
@@ -206,12 +214,11 @@
     \end{gathered}
   \end{equation}
   where $H$ is the size of the last hidden layer, $x_i$ is the output of the $i$-th unit in the last hidden layer. 
-  $known(S_y^i) = 1$ when $S_y^i$ is known in advance, otherwise $known(S_y^i = 0$.
+  $known(S_y^i) = 1$ when $S_y^i$ is known in advance, otherwise $known(S_y^i) = 0$.
   
-  The NN enabled attack models only focus on the high precision rate on the test set, even if there is a high recall rate. 
-  A high precision rate on the predictions of authentication answer means attackers could pass the authentication 
-  with a higher probability. The characteristic of NN enabled attack model makes it different from traditional 
-  NN models, which pay equal attention to precision and recall rate.
+  The NN enabled attack models only focus on the high precision, which means attackers could pass the authentication 
+  with a higher probability. The characteristic of NN enabled attack model distinguish it from traditional 
+  NN models, as the latter pay equal attention to precision and recall rate.
   
   With the NN enabled attack model, we could quantify passwords strength against shoulder-surfing attacks 
   from attackers' view, since the difficulty of NN training indirectly reflects password strength against 
@@ -221,19 +228,20 @@
     \begin{gathered}
     Strength_{pass|l} = \mathop{\min}\ \ |R_{train}| \\
     s.t.\ 
-    \forall (c,a) \in R_{test}, P(Attacker(c,a)=1|R_{train}) \geq l
+    \forall (c,a) \in R_{test}, P(Attack(c,a)=1|R_{train}) \geq l
     \end{gathered}
   \label{equa:indictor}
   \end{equation}
   
-  The indictor $Strength_{pass|l}$ is highly influenced by the information expressivity of NN models. Therefore, for the 
+  The indicator $Strength_{pass|l}$ is highly influenced by the information expressivity of NN models. Therefore, for the 
   rationality of the comparisons of password strength, the information expressivities of all NN models should 
   be similar when $Strength_{pass|l}$ is used to quantify multiple password systems at the same time.
   \section{Evaluation}
   \label{sec:evaluation}
   In this section, we first introduce two categories of advanced graphical password systems, and present 
   information about our dataset and model architectures. We then make two experiments and study the 
-  rationality of our indicator $Strength_{pass|l}$ and the influence of NN models' expressivity.
+  rationality of our indicator $Strength_{pass|l}$ and the influence of NN models' expressivity. The project 
+  can be downloaded in Github. See \cite{gys} for detail.
   \subsection{Experiment setup}
   \textbf{Categories of Advanced graphical password systems:}
   Advanced graphical passwords can be divided into two main categories based on recall and recognition. 
@@ -246,13 +254,13 @@
   
   Recall-based graphical password systems are referred to as drawmetric systems \cite{DBLP:journals/ijmms/AngeliCJR05}. 
   In the recall-based systems, users recall the pattern they selected before and calculate an authentication 
-  answer based on the pattern. GrIDsure is a kind of recall-based graphical password system, which displays digits in a $D \times D$ grid. 
+  answer based on the pattern. GrIDsure \cite{Brostoff2010Evaluating} is a kind of recall-based graphical password system, which displays digits in a $D \times D$ grid. 
   Users select and memorize a pattern consisting of an ordered subset of $E$ grid squares in advance. On 
   subsequent logins, digits are randomly displayed within the grid squares and users enter the sum of digits 
   within their memorized pattern.
   
   \textbf{Setup:}We made experiments on $6$-bit PIN, indefinite length ($\leq 12$) 
-  text password, PassFaces and GrIDsure \cite{Brostoff2010Evaluating}. $6$-bit PIN has been 
+  text password, PassFaces and GrIDsure. $6$-bit PIN has been 
   widely used in ATM and online payment environments, and indefinite length text passwords are applied in social 
   applications, like Facebook and Twitter. These two kinds of password systems are on behalf of traditional 
   graphical passwords. Passfaces and GrIDsure are two canonical examples of advanced graphical passwords. In the 
@@ -264,32 +272,32 @@
   that the four NN models have similar information expressivity. The number of units in the input and output 
   layers is determined by the size of authentication challenges and answers of different password systems, 
   which makes little influence on the information expressivity. In the training process, we train each NN model with 
-  10 different training sets and compute the average precision rate. We use RMSProp as the optimizer.
+  10 different training sets and compute the average precision. We use RMSProp as the optimizer.
   
   \subsection{Experiment results}
-  In the first experiment, we try to verify the rationality of our indicator $Strength_{pass|l}$.  We record the average precision rate 
-  of four password systems when giving different sizes of the training set. All the NN models in this experiment have two 
-  hidden layers, each layer has $32$ hidden units. 
+  In the first experiment, we try to verify the rationality of our indicator $Strength_{pass|l}$. All the NN 
+  models in this experiment have two hidden layers, each layer has $32$ hidden units. We record the precision 
+  rate of four attack models when giving different sizes of training sets. 
   \begin{figure}[htb]
     \centering
     \includegraphics[width=8.5cm]{line.eps}
-    \caption{The experiment results}
+    \caption{The precision of different graphical passwords when given different training sets}
     \label{fig:results}
   \end{figure}
   
-  The result is shown in Figure \ref{fig:results}. To achieve a more than $90\%$ accuracy, the NN model for 
+  The result is shown in Figure \ref{fig:results}. To achieve a more than $90\%$ precision, the NN models for 
   PIN/text need really small training set, the NN model for PassFaces need $256$ pieces of training data, and 
-  about $512$ pieces of training data are needed for GrIDsure. The result illustrates that GrIDsure and PassFaces 
-  have greater capabilities than PIN and text passwords to protect from shoulder-surfing attacks, and GrIDsure 
-  is better than PassFaces. The experiment result is consistent with the theoretical analysis. The challenge space $\mathbb{C}$
+  about $500$ pieces of training data are needed for GrIDsure. The result illustrates that GrIDsure and PassFaces 
+  have greater capabilities than PIN/text passwords to protect from shoulder-surfing attacks, and GrIDsure 
+  is even better than PassFaces. The experiment result is consistent with the theoretical analysis. The challenge space $\mathbb{C}$
   and answer space $\mathbb{A}$ of PIN and text passwords are zero-dimension, so the authentication passwords in these systems 
   are constant functions, which are vulnerable to shoulder-surfing attacks. For PassFaces, 
   $|\mathbb{C}| = \binom{F}{B}, |\mathbb{A}| = \binom{A}{C}$, and the authentication password is a injective function, which 
   is harder for NN models to crack. GrIDsure has an even larger challenge space and answer space, so it is least 
   vulnerable to shoulder-surfing attacks.
   
-  The result also reveals vulnerability of PIN and text passwords against shoulder-surfing attacks. Nowadays, 
-  these two traditional password systems are broadly applied in mobile devices, which meet with high security 
+  The result also reveals the vulnerability of PIN and text passwords against shoulder-surfing attacks. Nowadays, 
+  these two traditional password systems are broadly implemented in mobile devices, which meet with high security 
   risks. This is what we think the Internet industry really has to pay attention.
   
   In the second experiment, we build up several NN models with different information expressivities and study 
@@ -297,7 +305,8 @@
   \begin{figure}[htb]
     \centering
     \includegraphics[width=8.5cm]{passfaces.eps}
-    \caption{The experiment results}
+    \caption{The influence of information expressivity on PassFaces's NN model. The precision is really 
+    low when there are $8$ hidden units in each hidden layer.}
     \label{fig:results2}
   \end{figure}
   % \begin{figure}[htb]
@@ -386,7 +395,7 @@
   % style file from IEEE produces unsorted bibliography list.
   % -------------------------------------------------------------------------
   \bibliographystyle{IEEEbib}
-  \bibliography{strings,refs}
+  \bibliography{refs}
   
   \end{document}
   
